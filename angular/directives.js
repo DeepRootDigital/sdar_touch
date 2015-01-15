@@ -216,9 +216,7 @@ app.directive('photoGallery', ['$interval','$http',function($interval,$http){
 						});
 					  });
 				},2500);
-
 			});
-
 		}
 	}
 }]);
@@ -233,7 +231,7 @@ app.directive('photoGallery', ['$interval','$http',function($interval,$http){
 app.directive('eventBrite', ['$interval','$http',function($interval,$http){
 	return {
 		restrict: 'E',
-		templateUrl:'partials/eventBrite.html'
+		templateUrl:'partials/square.html'
 ,		link: function(scope, elm, attrs) {		
 			var color=attrs.color;
 			var type=attrs.type;
@@ -250,22 +248,6 @@ app.directive('eventBrite', ['$interval','$http',function($interval,$http){
 			$(elm).click(function(){
 				window.location='#/'+link;
 			});
-
-
-			$http({
-			    url: "https://www.eventbriteapi.com/v3/events/search/?token=N7GZJ3GGWYMGJFPDHYXQ&organizer.id=1358238579",
-			    method: "GET"
-			  }).success(function(d){
-			  		scope.events = Array();
-			  	d.events.forEach(function(e,i){
-			  		var ev = String(e.description.html);
-			  		scope.events.push(ev);
-			  	});
-				console.log(d.events);
-			  }).error(function(d,e){
-			    console.log(d,e);
-			  });
-
 		}
 	}
 }]);

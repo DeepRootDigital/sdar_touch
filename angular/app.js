@@ -9,21 +9,13 @@ config(['$routeProvider', function($routeProvider) {
 {  	templateUrl: 'partials/frontpage.html', 
   	controller: 'homeCtrl'
   });
-  $routeProvider.when('/create', {
-  	templateUrl: 'partials/create.html', 
-  	controller: 'createController'
+  $routeProvider.when('/events', {
+    templateUrl: 'partials/events.html', 
+    controller: 'eventsController'
   });
-  $routeProvider.when('/hub', {
-    templateUrl: 'partials/hub.html',
-    controller: 'hubController'
-  });
-  $routeProvider.when('/pagebuilder',{
-    templateUrl: 'partials/pagemaker.html',
-    controller: 'builderCtrl'
-  });
-  $routeProvider.when('/settings', {
-  	templateUrl: 'partials/settings.html', 
-  	controller: 'settingsController'
+  $routeProvider.when('/gallery', {
+    templateUrl: 'partials/gallery.html', 
+    controller: 'galleryController'
   });
   $routeProvider.otherwise({redirectTo: '/'});
 }]);
