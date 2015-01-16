@@ -23,7 +23,8 @@ app.directive('mySquare', function(){
 				'background-color':color,
 				'background-image':'url('+image+')',
 				'background-repeat':'no-repeat',
-				'background-position':'50% 50%'
+				'background-position':'50% 50%',
+				'background-size':'cover'
 			});
 			$(elm).find("span").eq(1).html(title);
 			$(elm).click(function(){
@@ -221,6 +222,36 @@ app.directive('photoGallery', ['$interval','$http',function($interval,$http){
 	}
 }]);
 
+/*	****************
+
+	One Photo Directive
+
+	**************** */
+
+app.directive('myPhoto', function(){
+	return {
+		restrict: 'E',
+		templateUrl:'partials/square.html'
+,		link: function(scope, elm, attrs) {
+			var color=attrs.color;
+			var image=attrs.image;
+			var type=attrs.type;
+			var title=attrs.title;
+			var link=attrs.link;
+			var id=attrs.index;
+
+			$(elm).addClass('span-'+type);
+			$(elm).find("span").eq(0).css({
+				'background-color':color,
+				'background-image':'url('+image+')',
+				'background-repeat':'no-repeat',
+				'background-position':'50% 50%',
+				'background-size':'cover'
+			});
+			$(elm).find("span").eq(1).html(title);
+		}
+	}
+});
 
 /*	****************
 

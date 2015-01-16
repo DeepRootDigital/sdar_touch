@@ -16,28 +16,29 @@ appCtrl.controller('homeCtrl', ['$scope',
 
 
 // Gallery CONTROLLER
-appCtrl.controller('galleryController', ['$scope','$rootScope','$http','$document','$window','$location',function($scope,$rootScope,$http,$document,$window,$location) {
-		console.log("gallery controler");
+appCtrl.controller('galleryController', ['$scope','$rootScope','$http','$document','$window','$location','$interval',function($scope,$rootScope,$http,$document,$window,$location,$interval) {
+		$scope.gallery=Array();
+		$scope.currentPhoto=null;
+		$scope.showPhoto = function(index){
+			console.log(index);
+			if ( (index<0) || (index>=$scope.gallery.length)) $scope.currentPhoto=null;
+			$scope.currentPhoto=$scope.gallery[index];
+			$scope.currentPhoto.index=index;
+		}
 		$http({
 				method: "POST",
 				url: "http://api.sdar.com/touchGallery.php"
 			})
 			  .success(function( gallery ) {	
-			
-				$(elm).find("span").eq(0).css({
-					'background-image':'url('+gallery[0].root_url+')'
-				});
-	
+			  $scope.gallery=gallery;	
+			  console.log(gallery)
 				$interval(function(){
 					$http({
 					  	method : "POST",
 			  			url : "http://api.sdar.com/touchGallery.php"
-					})
-					  .success(function( gallery ) {				    
-						$(elm).find("span").eq(0).css({
-							'background-image':'url('+gallery[0].root_url+')'
-						});
-					  });
+					}).success(function(gallery){
+						$scope.gallery=gallery;	
+					});
 				},2500);
 			});
 }]);
