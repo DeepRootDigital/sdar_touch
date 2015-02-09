@@ -158,7 +158,7 @@ appCtrl.controller('documentsController', ['$scope','$sce','Documents','$documen
 		data.forEach(function(document){
 			var newDocument = {
 				title : document.slice(0,document.length-4),
-				url : $sce.trustAsResourceUrl("http://api.sdar.com/documents/"+document)
+				url : $sce.trustAsResourceUrl("http://touchdemo.sdar.com/documents/"+document)
 			}
 			$scope.documents.push(newDocument);
 		});
@@ -186,19 +186,8 @@ appCtrl.controller('documentsController', ['$scope','$sce','Documents','$documen
     }
 	}
 	$scope.printPDF = function(url){
-      /*var _this = this,
-          iframeId = 'iframeprint',
-          $iframe = $('iframe#iframeprint');
-      $iframe.attr('src', url);
- 
-      $iframe.load(function() {
-	      var PDF = document.getElementById(iframeId);
-	      PDF.focus();
-	      PDF.contentWindow.print();
-      });
-          var iframe = document.getElementById("iframeprint");
-          iframe.focus();
-          iframe.contentWindow.print();*/
+    var w = window.open($scope.CurrentURL);
+    w.print();
 	}
 }]);
 /*******************************
