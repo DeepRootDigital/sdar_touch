@@ -168,45 +168,13 @@ app.factory("Videos", ["$http", function($http) {
   var theInterface = {
     getVideos :function(callback){
       $http({
-          method : "POST",
-          url : "http://api.sdar.com/touchVideosActions.php",
-          data : {
-            action : "list"
-          }
-      })
-        .success(function( res ) {  
-          if (res!= "error")
-            callback(res);
-          else
-            console.log(res);
-        });
-    },
-    pushVideos : function(title,pdf,callback){
-      $http({
-          method : "POST",
-          url : "http://api.sdar.com/touchVideosActions.php",
-          data : {
-            action : 'push',
-            base64 : pdf,
-            title : title
-          }
-      })
-        .success(function( res ) {     
-            callback(res);
-        });
-    },
-    removeFromVideos : function(filename,callback){
-      $http({
-          method : "POST",
-          url : "http://api.sdar.com/touchVideosActions.php",
-          data : {
-            action : "remove",
-            filename : filename
-          }
-      })
-        .success(function( res ) {      
-          callback(res);
-        });
+        method: "GET",
+        url: "https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&key=AIzaSyDlFjHv-rOP1mmKEWb1G_1RSjZywp3mNeo&playlistId=PLf_HQDhaTgNHf61zWU_mXVb2GzIXdWsph"
+      }).success(function(data){
+        callback(data);
+      }).error(function(data,err){
+        callback("err");
+      });
     }
   }
   return theInterface;

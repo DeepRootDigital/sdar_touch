@@ -208,32 +208,25 @@ appCtrl.controller('documentsController', ['$scope','$sce','Documents','$documen
 ********************************/
 appCtrl.controller('videosController', ['$scope','$sce','Videos','$http',function($scope,$sce,Videos,$http) {
 	var videosFactory = Videos();
+  $scope.currentVideo = null;
 	$scope.videos = Array();
 	videosFactory.getVideos(function(data){
-		/*data.forEach(function(video){
-			var newVideo = {
-				title : video.slice(0,video.length-4),
-				url : $sce.trustAsResourceUrl("http://api.sdar.com/videos/"+video)
-			}
-			$scope.videos.push(newVideo);
-		});*/
+    console.log(data);
+		data.items.forEach(function(d){
+      $scope.videos.push({
+        id: d.snippet.resourceId.videoId,
+        title: d.snippet.title,
+        description: d.snippet.description,
+        thumbnail: $sce.trustAsResourceUrl(d.snippet.thumbnails.high.url)
+      });
+    });
 	});
-        $http({
-          method: "GET",
-          url: "https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&key=AIzaSyDlFjHv-rOP1mmKEWb1G_1RSjZywp3mNeo&playlistId=PLf_HQDhaTgNHf61zWU_mXVb2GzIXdWsph"
-        }).success(function(data){
-          console.log(data);
-          data.items.forEach(function(d){
-            $scope.videos.push({
-              id: d.snippet.resourceId.videoId,
-              title: d.snippet.title,
-              description: d.snippet.description,
-              thumbnail: d.snippet.thumbnails.high
-            });
-          });
-        }).error(function(data,err){
-          console.log(data,err);
-        });
+
+  $scope.playVideo = function(id) {
+    var url = "https://www.youtube.com/embed/" + id + "?autoplay=1";
+    $scope.currentVideo = $sce.trustAsHtml('<iframe id="ytplayer" type="text/html" width="100%" height="100%" src="' + url + '" frameborder="0" allowfullscreen>');
+  }
+        
 	$scope.goBack = function(){
 		window.location='#/';
 	}
