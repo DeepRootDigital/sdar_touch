@@ -159,8 +159,8 @@ the-news marquee>span{
 #photo-container{
 	position: fixed;
 	top: 2.5%;
-	left: 2.5%;
-	width: 95%;
+	left: 5%;
+	width: 90%;
 	height: 95%;
 	background-repeat: no-repeat;
 	background-size: cover;

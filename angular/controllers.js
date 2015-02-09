@@ -158,7 +158,7 @@ appCtrl.controller('documentsController', ['$scope','$sce','Documents','$documen
 		data.forEach(function(document){
 			var newDocument = {
 				title : document.slice(0,document.length-4),
-				url : $sce.trustAsResourceUrl("http://touchdemo.sdar.com/documents/"+document)
+				url : $sce.trustAsResourceUrl("http://api.sdar.com/documents/"+document)
 			}
 			$scope.documents.push(newDocument);
 		});
@@ -186,7 +186,7 @@ appCtrl.controller('documentsController', ['$scope','$sce','Documents','$documen
     }
 	}
 	$scope.printPDF = function(url){
-    var w = window.open($scope.CurrentURL);
+    var w = window.open(url);
     w.print();
 	}
 }]);
