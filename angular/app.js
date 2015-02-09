@@ -18,6 +18,10 @@ config(['$routeProvider', function($routeProvider) {
     templateUrl: 'partials/gallery.html', 
     controller: 'galleryController'
   });
+  $routeProvider.when('/gallery/:name', {
+    templateUrl: 'partials/gallery.html', 
+    controller: 'galleryController'
+  });
   $routeProvider.when('/admin', {
     templateUrl: 'partials/admin.html', 
     controller: 'adminController'

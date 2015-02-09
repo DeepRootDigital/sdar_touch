@@ -10,12 +10,25 @@ var app = angular.module('app');
 app.factory("Gallery", ["$http", function($http) {
   return function() {  
   var theInterface = {
-    getGallery :function(callback){
+    getGalleries :function(callback){
       $http({
           method : "POST",
           url : "http://api.sdar.com/touchGalleryActions.php",
           data : {
-            action : "list"
+            action : "listgal"
+          }
+      })
+        .success(function( res ) { 
+          callback(res);
+        });
+    },
+    getGallery :function(callback,gal){
+      $http({
+          method : "POST",
+          url : "http://api.sdar.com/touchGalleryActions.php",
+          data : {
+            action : "list",
+            gallery : gal
           }
       })
         .success(function( res ) { 
@@ -27,12 +40,11 @@ app.factory("Gallery", ["$http", function($http) {
           method : "POST",
           url : "http://api.sdar.com/touchGalleryActions.php",
           data : {
-            action : "list",
-            random : "true" 
+            action : "random"
           }
       })
-        .success(function( gallery ) {     
-          callback(gallery[Math.floor(Math.random()*gallery.length)]);
+        .success(function( image ) {     
+          callback(image);
         });
     },
     removeFromGallery : function(filename,callback){

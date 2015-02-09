@@ -33,7 +33,6 @@ appCtrl.controller('eventsController', ['$scope','$http','$sce',	function($scope
       })
 		.success(function(d){
     $scope.events = d.events;
-    console.log(d.events);
   }).error(function(d,e){
     console.log(d,e);
   });
@@ -92,12 +91,29 @@ appCtrl.filter('timesplit', function() {
 **    GALLERY CONTROLLER      **
 **                            **
 ********************************/
-appCtrl.controller('galleryController', ['$scope','Gallery','$sce',function($scope,Gallery,$sce) {
+appCtrl.controller('galleryController', ['$scope','Gallery','$sce','$routeParams',function($scope,Gallery,$sce,$routeParams) {
 	var galleryFactory = Gallery();
 	$scope.gallery = Array();
 	$scope.scrollGallery = Array();
-
-	galleryFactory.getGallery(function(data){
+console.log($routeParams);
+if (!$routeParams.name){
+/*  FIRST LEVEL IS TO GET ONLY THE GALLERIES ( FOLDERS NAMES AND ONE RANDOM IMAGE FOR EACH FOLDER ) */
+	galleryFactory.getGalleries(function(data){
+		data.forEach(function(folder,image){
+			var newGallery = {
+				title : title,
+				url : $sce.trustAsResourceUrl("http://api.sdar.com/gallery/"+folder),
+				thumbnail_url : $sce.trustAsResourceUrl("http://api.sdar.com/gallery_thumbnails/"+image)
+			}
+			$scope.gallery.push(newGallery);
+		});
+		for (var i=0;(i<12)&&(i<$scope.gallery.length);i++){
+			$scope.scrollGallery.push($scope.gallery[i]);
+		}
+	});
+}else{
+/*  SECOND LEVEL IS TO GET ALL PICTURES WITHIN A GALLERY( FOLDERS NAME ) */
+	galleryFactory.getGalleries(function(data){
 		data.forEach(function(image){
 			var title = image.slice(0,image.length-4);
 			var newImage = {
@@ -107,31 +123,21 @@ appCtrl.controller('galleryController', ['$scope','Gallery','$sce',function($sco
 			}
 			$scope.gallery.push(newImage);
 		});
-		$scope.gallery.sort(function(a,b){			
-			var realIndexA=parseInt(a.title.split("_")[0]);
-			var realIndexB=parseInt(b.title.split("_")[0]);
-			if (realIndexA<realIndexB){
-				return -1
-			}else if (realIndexA>=realIndexB){
-				return 1
-			}
-		});
-		$scope.gallery.forEach(function(data){
-			console.log(data.title);
-		});
 		for (var i=0;(i<12)&&(i<$scope.gallery.length);i++){
 			$scope.scrollGallery.push($scope.gallery[i]);
 		}
 	});
 	$scope.currentPhoto=null;
-	$scope.showPhoto = function(index){
-		if ( (index<0) || (index>=$scope.gallery.length)) $scope.currentPhoto=null;			
-		$scope.currentPhoto=$scope.gallery[index];		
-		$scope.currentPhoto.index=index;
-	}
-	$scope.goBack = function(){
-		window.location='#/';
-	}
+		$scope.showPhoto = function(index){
+			if ( (index<0) || (index>=$scope.gallery.length)) $scope.currentPhoto=null;			
+			$scope.currentPhoto=$scope.gallery[index];		
+			$scope.currentPhoto.index=index;
+		}
+		$scope.goBack = function(){
+			window.location='#/';
+		}
+}
+
 	$scope.paginateImages = function(){
     var last = $scope.scrollGallery.length;
     for(var i = 0; i < 4; i++) {
@@ -140,20 +146,25 @@ appCtrl.controller('galleryController', ['$scope','Gallery','$sce',function($sco
 			}
     }
 	}
+
+	
 }]);
 
-/*****************************************
-**                                      **
-**    DOCUMENTS/JUSTKNOCK CONTROLLER    **
-**                                      **
-******************************************/
+/**************************************************
+**                                   					   **
+**    DOCUMENTS/JUSTKNOCK/BENEFITS CONTROLLER    **
+**                              					       **
+***************************************************/
 appCtrl.controller('documentsController', ['$scope','$sce','Documents','$document',function($scope,$sce,Documents,$document) {
 	$scope.marginImageJustKnockWidth=(window.innerWidth-1100)/2+"px";
 	$scope.currentPDF=null;
 	$scope.CurrentURL=null;
+	$scope.currentContent=null;
+
 	var galleryFactory = Documents();
 	$scope.documents = Array();
 	$scope.scrollDocuments = Array();
+
 	galleryFactory.getDocuments(function(data){
 		data.forEach(function(document){
 			var newDocument = {
@@ -170,7 +181,13 @@ appCtrl.controller('documentsController', ['$scope','$sce','Documents','$documen
 		window.location='#/';
 	}
 	$scope.openURL = function(theUrl){
+		$scope.currentContent=null;
 		$scope.CurrentURL=$sce.trustAsResourceUrl(theUrl);
+	}	
+	$scope.openContent = function(content){
+		console.log($scope.currentContent);
+		$scope.currentContent=content;
+		console.log($scope.currentContent);
 	}
 	$scope.showDocument = function(doc){
 		$scope.currentPDF=doc;
