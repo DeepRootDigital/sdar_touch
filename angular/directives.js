@@ -18,6 +18,7 @@ app.directive('mySquare', function(){
 			var title=attrs.title;
 			var link=attrs.link;
 			var clock=attrs.clock;
+			var blank=attrs.blank;
 
 			$(elm).addClass('span-'+type);
 			$(elm).css({
@@ -31,6 +32,11 @@ app.directive('mySquare', function(){
 			if (link){
 				$(elm).click(function(){
 					window.location='#/'+link;
+				});
+			}
+			if (blank) {
+				$(elm).click(function(){
+					window.open(blank,'_blank');
 				});
 			}
 		}

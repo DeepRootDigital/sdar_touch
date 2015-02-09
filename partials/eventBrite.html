@@ -1,9 +1,11 @@
 <section class="resources section-wrapper" id="resources">
-	<div class="span-3 event" ng-repeat="event in events" ng-click="openURL(event.url)">
-		<h1>{{event.name.text}}</h1>
-		<p ng-show="event.start.local">Date : {{event.start.local | datesplit}}</p>
-		<p ng-show="event.start.local">Time : {{event.start.local | timesplit}}</p>
-		<p ng-show="event.category.name">Category : {{event.category.name}}</p>
+	<div class="span-3 event" ng-repeat="event in events">
+    <a href="{{event.url}}" target="_blank">
+		  <h1>{{event.name.text}}</h1>
+		  <p ng-show="event.start.local">Date : {{event.start.local | datesplit}}</p>
+		  <p ng-show="event.start.local">Time : {{event.start.local | timesplit}}</p>
+		  <p ng-show="event.category.name">Category : {{event.category.name}}</p>
+    </a>
 	</div>
 </div>
 </section>
