@@ -38,8 +38,7 @@ appCtrl.controller('eventsController', ['$scope','$http','$sce',	function($scope
     console.log(d,e);
   });
 	$scope.openURL = function(theUrl){
-		//$scope.CurrentURL=$sce.trustAsResourceUrl(theUrl);
-                window.location = theURL;
+    window.open(theUrl,'_blank');
 	}
 	$scope.goBack = function(){
 		window.location='#/';
