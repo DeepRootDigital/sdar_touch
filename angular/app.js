@@ -15,7 +15,7 @@ config(['$routeProvider', function($routeProvider) {
     controller: 'eventsController'
   });
   $routeProvider.when('/gallery', {
-    templateUrl: 'partials/gallery.html', 
+    templateUrl: 'partials/galleries.html', 
     controller: 'galleryController'
   });
   $routeProvider.when('/gallery/:name', {

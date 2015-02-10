@@ -22,7 +22,7 @@ app.factory("Gallery", ["$http", function($http) {
           callback(res);
         });
     },
-    getGallery :function(callback,gal){
+    getGallery :function(gal,callback){
       $http({
           method : "POST",
           url : "http://api.sdar.com/touchGalleryActions.php",
@@ -32,6 +32,7 @@ app.factory("Gallery", ["$http", function($http) {
           }
       })
         .success(function( res ) { 
+          console.log(res);
           callback(res);
         });
     },
@@ -43,7 +44,8 @@ app.factory("Gallery", ["$http", function($http) {
             action : "random"
           }
       })
-        .success(function( image ) {     
+        .success(function( image ) {    
+        console.log(image); 
           callback(image);
         });
     },

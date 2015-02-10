@@ -195,14 +195,14 @@ app.directive('photoGallery', ['$interval','Gallery','$http','$sce',function($in
 
 			galleryFactory.getRandomImage(function(data){
 				$(elm).css({
-						'background-image':"url('"+$sce.trustAsResourceUrl('http://api.sdar.com/gallery_thumbnails/'+data)+"')"
+						'background-image':"url('"+$sce.trustAsResourceUrl('http://api.sdar.com/gallery/'+data)+"')"
 				});
 			});
 
 			$interval(function(){
 				galleryFactory.getRandomImage(function(data){
 					$(elm).css({
-						'background-image':"url('"+$sce.trustAsResourceUrl('http://api.sdar.com/gallery_thumbnails/'+data)+"')"
+						'background-image':"url('"+$sce.trustAsResourceUrl('http://api.sdar.com/gallery/'+data)+"')"
 					});
 				});
 			},5000);
