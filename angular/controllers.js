@@ -94,15 +94,14 @@ appCtrl.controller('galleryController', ['$scope','Gallery','$sce','$routeParams
 	var galleryFactory = Gallery();
 	$scope.gallery = Array();
 	$scope.scrollGallery = Array();
-console.log($routeParams);
 if (!$routeParams.name){
 /*  FIRST LEVEL IS TO GET ONLY THE GALLERIES ( FOLDERS NAMES AND ONE RANDOM IMAGE FOR EACH FOLDER ) */
 	galleryFactory.getGalleries(function(data){
-		data.forEach(function(folder,image){
+		data.forEach(function(folder){
 			var newGallery = {
-				title : title,
+				title : folder,
 				url : $sce.trustAsResourceUrl("http://api.sdar.com/gallery/"+folder),
-				thumbnail_url : $sce.trustAsResourceUrl("http://api.sdar.com/gallery_thumbnails/"+image)
+				thumbnail_url : $sce.trustAsResourceUrl("http://api.sdar.com/gallery/"+folder)
 			}
 			$scope.gallery.push(newGallery);
 		});
@@ -111,14 +110,12 @@ if (!$routeParams.name){
 		}
 	});
 }else{
+	var folder =$routeParams.name;
 /*  SECOND LEVEL IS TO GET ALL PICTURES WITHIN A GALLERY( FOLDERS NAME ) */
-	galleryFactory.getGalleries(function(data){
+	galleryFactory.getGallery(folder,function(data){
 		data.forEach(function(image){
-			var title = image.slice(0,image.length-4);
 			var newImage = {
-				title : title,
-				url : $sce.trustAsResourceUrl("http://api.sdar.com/gallery/"+image),
-				thumbnail_url : $sce.trustAsResourceUrl("http://api.sdar.com/gallery_thumbnails/"+image)
+				url : $sce.trustAsResourceUrl("http://api.sdar.com/gallery/"+folder+"/"+image)
 			}
 			$scope.gallery.push(newImage);
 		});
@@ -136,7 +133,9 @@ if (!$routeParams.name){
 			window.location='#/';
 		}
 }
-
+$scope.showGallery = function(folder) {
+	window.location='#/gallery/'+folder;
+}
 	$scope.paginateImages = function(){
     var last = $scope.scrollGallery.length;
     for(var i = 0; i < 4; i++) {
