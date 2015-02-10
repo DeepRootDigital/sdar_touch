@@ -105,6 +105,21 @@ the-weather p{
   height: 33.3%;
   overflow: hidden;
 }
+.span-3.gallery {
+	height: 33.3%;
+	padding: 0;
+	overflow: hidden;
+}
+.span-3.gallery p {
+	position: absolute;
+	bottom: 0;
+	width: 100%;
+	margin-bottom: 0;
+	padding: 2%;
+	font-size: .65em;
+	text-align: center;
+	background-color: rgba(0,0,0,.8);
+}
 .rnews > img {
   position: absolute;
   top: 0;
