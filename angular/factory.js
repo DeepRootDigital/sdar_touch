@@ -32,7 +32,6 @@ app.factory("Gallery", ["$http", function($http) {
           }
       })
         .success(function( res ) { 
-          console.log(res);
           callback(res);
         });
     },

@@ -271,28 +271,28 @@ app.directive('getSocial', function(){
 				'background-position':'50% 33%',
 				'background-size':'cover'
 			});
-                        scope.title = title;
-                        scope.socialmedia = [{
-                          name: "Facebook",
-                          icon: "http://api.sdar.com/assets/facebook-icon.png",
-                          link: "https://www.facebook.com/RealtorsSD"
-                        },{
-                          name: "Twitter",
-                          icon: "http://api.sdar.com/assets/twitter-icon.png",
-                          link: "https://twitter.com/realtorssd"
-                        },{
-                          name: "Google+",
-                          icon: "http://api.sdar.com/assets/google-icon.png",
-                          link: "https://plus.google.com/112707606738948358944/posts"
-                        },{
-                          name: "Youtube",
-                          icon: "http://api.sdar.com/assets/youtube-icon.png",
-                          link: "https://www.youtube.com/user/RealtorsSD"
-                        },{
-                          name: "Linkedin",
-                          icon: "http://api.sdar.com/assets/linkedin-icon.png",
-                          link: "https://www.linkedin.com/company/greater-san-diego-association-of-realtors-"
-                        }];
+      scope.title = title;
+      scope.socialmedia = [{
+        name: "Facebook",
+        icon: "http://api.sdar.com/assets/facebook-icon.png",
+        link: "https://www.facebook.com/RealtorsSD"
+      },{
+        name: "Twitter",
+        icon: "http://api.sdar.com/assets/twitter-icon.png",
+        link: "https://twitter.com/realtorssd"
+      },{
+        name: "Google+",
+        icon: "http://api.sdar.com/assets/google-icon.png",
+        link: "https://plus.google.com/112707606738948358944/posts"
+      },{
+        name: "Youtube",
+        icon: "http://api.sdar.com/assets/youtube-icon.png",
+        link: "https://www.youtube.com/user/RealtorsSD"
+      },{
+        name: "Linkedin",
+        icon: "http://api.sdar.com/assets/linkedin-icon.png",
+        link: "https://www.linkedin.com/company/greater-san-diego-association-of-realtors-"
+      }];
 		}
 	}
 });
