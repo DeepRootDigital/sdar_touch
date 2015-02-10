@@ -18,7 +18,8 @@ app.factory("Gallery", ["$http", function($http) {
             action : "listgal"
           }
       })
-        .success(function( res ) { 
+        .success(function( res ) {
+          console.log(res);
           callback(res);
         });
     },
