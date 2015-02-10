@@ -90,7 +90,7 @@ appCtrl.filter('timesplit', function() {
 **    GALLERY CONTROLLER      **
 **                            **
 ********************************/
-appCtrl.controller('galleryController', ['$scope','Gallery','$sce','$routeParams',function($scope,Gallery,$sce,$routeParams) {
+appCtrl.controller('galleryController', ['$scope','Gallery','$sce','$routeParams','$interval',function($scope,Gallery,$sce,$routeParams,$interval) {
 	var galleryFactory = Gallery();
 	$scope.gallery = Array();
 	$scope.scrollGallery = Array();
@@ -99,9 +99,9 @@ if (!$routeParams.name){
 	galleryFactory.getGalleries(function(data){
 		data.forEach(function(folder){
 			var newGallery = {
-				title : folder,
-				url : $sce.trustAsResourceUrl("http://api.sdar.com/gallery/"+folder),
-				thumbnail_url : $sce.trustAsResourceUrl("http://api.sdar.com/gallery/"+folder)
+				title : folder.name,
+				url : $sce.trustAsResourceUrl("http://api.sdar.com/gallery/"+folder.name),
+				thumbnail :  $sce.trustAsResourceUrl("http://api.sdar.com/gallery/"+folder.name+"/"+folder.thumbnail),
 			}
 			$scope.gallery.push(newGallery);
 		});
@@ -109,6 +109,10 @@ if (!$routeParams.name){
 			$scope.scrollGallery.push($scope.gallery[i]);
 		}
 	});
+		$scope.goBack = function(){
+			console.log("fsdafasdsdf back");
+			window.location='#/';
+		}
 }else{
 	var folder =$routeParams.name;
 /*  SECOND LEVEL IS TO GET ALL PICTURES WITHIN A GALLERY( FOLDERS NAME ) */
@@ -129,8 +133,8 @@ if (!$routeParams.name){
 			$scope.currentPhoto=$scope.gallery[index];		
 			$scope.currentPhoto.index=index;
 		}
-		$scope.goBack = function(){
-			window.location='#/';
+		$scope.goBackGallery = function(){
+			window.location='#/gallery';
 		}
 }
 $scope.showGallery = function(folder) {
